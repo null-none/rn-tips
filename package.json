@@ -1,18 +1,18 @@
 {
-  "name": "react-native-tips",
-  "version": "0.0.12",
+  "name": "rn-tips",
+  "version": "0.0.1",
   "description": "Helper to show tips when you launch your react-native for the first time",
   "main": "Tips/index.js",
   "scripts": {
-    "test": "eslint ./Tips && jest",
+    "test": "jest",
     "test:dev": "yarn test --watch"
   },
   "bugs": {
-    "url": "https://github.com/frichti/react-native-tips/issues"
+    "url": "https://github.com/null-none/rn-tips/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/frichti/react-native-tips"
+    "url": "https://github.com/null-none/rn-tips"
   },
   "keywords": [
     "reactnative",
@@ -42,38 +42,38 @@
       "node_modules/jest-runtime/build/script_transformer.js"
     ]
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.46",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.1",
-    "babel-jest": "^22.2.0",
-    "babel-preset-react-native": "^4.0.0",
-    "enzyme": "^3.3.0",
-    "eslint": "^4.17.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.6.1",
-    "eslint-plugin-react-native": "^3.2.1",
-    "jest": "^22.4.3",
+    "@babel/core": "^7.10.5",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.1.0",
+    "babel-preset-react-native": "^4.0.1",
+    "enzyme": "^3.11.0",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-native": "^3.8.1",
+    "jest": "^26.1.0",
     "jest-react-native": "^18.0.0",
-    "react": "^16.2.0",
+    "metro-react-native-babel-preset": "^0.60.0",
+    "react": "^16.13.1",
     "react-addons-test-utils": "^15.6.2",
-    "react-dom": "^16.2.0",
-    "react-native": "^0.51.0",
-    "react-native-mock": "github:RealOrangeOne/react-native-mock#master",
-    "react-test-renderer": "^16.3.2"
+    "react-dom": "^16.13.1",
+    "react-native": "^0.62",
+    "react-native-mock": "0.3.1",
+    "react-test-renderer": "^16.13.1"
   },
   "peerDependencies": {
-    "react": "^16.2.0",
-    "react-native": "^0.53.0"
+    "react": "^16.13.1",
+    "react-native": "^0.62"
   },
   "dependencies": {
-    "prop-types": "^15.6.0",
-    "react-mixin": "^4.0.0",
-    "react-timer-mixin": "^0.13.3",
-    "styled-components": "^3.1.6"
+    "prop-types": "^15.7.2",
+    "react-mixin": "^5.0.0",
+    "react-timer-mixin": "^0.13.4",
+    "styled-components": "^5.1.1"
   }
 }

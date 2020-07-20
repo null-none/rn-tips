@@ -1,14 +1,7 @@
-**[UNMAINTAINED]** This project is no more used by our products and, consequently, is not maintain by our developers anymore. Feel free to fork it or create your own library from it.
+This project is no more used by our products and, consequently, is not maintain by our developers anymore. Feel free to fork it or create your own library from it.
 
-# react-native-tips
-
-[![Build Status](https://travis-ci.org/frichti/react-native-tips.svg?branch=master)](https://travis-ci.org/frichti/react-native-tips)
-
+# rn-tips
 This module is used to guide your new comers throughout your app. Easily and Effectively.
-
-| Ios | Android |
-|-----|---------|
-|![alt text](https://github.com/myvertigo/react-native-tips/raw/master/doc/react-native-tips.gif "react-native-tips on IOS") | ![alt text](https://github.com/myvertigo/react-native-tips/raw/master/doc/react-native-tips-android.gif "react-native-tips on Android") |
 
 
 # Update to v0.0.8 - Deprecation warning
@@ -19,19 +12,18 @@ by `onRequestClose` which does the same thing.
 
 ```bash
 # Install via npm
-npm install react-native-tips --save
+npm install rn-tips --save
 
 # Install via yarn
-yarn add react-native-tips
+yarn add rn-tips
 ```
-
 
 # How to use it
 
 To use it, just import it directly into your components
 
 ```js
-import Tips from 'react-native-tips'
+import Tips from 'rn-tips'
 ```
 
 # Example
@@ -41,7 +33,7 @@ The most basic example of this module is to use it like this :
 ```js
 import React from 'react'
 import { View, Button } from 'react-native'
-import Tips from 'react-native-tips'
+import Tips from 'rn-tips'
 
 
 const MyButton = (props = {}) => (
@@ -93,7 +85,7 @@ You sometimes need to show tips one after another. This module has a helper to e
 ```js
 import React, { PureComponent } from 'react'
 import { View, Button, Text } from 'react-native'
-import Tips from 'react-native-tips'
+import Tips from 'rn-tips'
 
 
 export default class MyButton extends PureComponent {

@@ -1,135 +1,132 @@
-import WaterfallTips from './../Tips/WaterfallTips'
+import WaterfallTips from "./../Tips/WaterfallTips";
 
+describe("WaterfallTips testing", () => {
+  let waterfall;
 
-describe('WaterfallTips testing', () => {
-  let waterfall
+  it("should create an empty waterfall tips", () => {
+    const emptyWaterfall = new WaterfallTips();
 
-  it('should create an empty waterfall tips', () => {
-    const emptyWaterfall = new WaterfallTips()
+    expect(emptyWaterfall.indexes).toEqual({});
+  });
 
-    expect(emptyWaterfall.indexes).toEqual({})
-  })
-
-  it('should create index when created', () => {
-    waterfall = new WaterfallTips([
-      'test', 'button Special', 'ok^'
-    ])
+  it("should create index when created", () => {
+    waterfall = new WaterfallTips(["test", "button Special", "ok^"]);
 
     expect(waterfall.indexes).toEqual({
       test: {
-        name: 'test',
-        position: 0
+        name: "test",
+        position: 0,
       },
       buttonSpecial: {
-        name: 'buttonSpecial',
-        position: 1
+        name: "buttonSpecial",
+        position: 1,
       },
       ok: {
-        name: 'ok',
-        position: 2
-      }
-    })
-  })
+        name: "ok",
+        position: 2,
+      },
+    });
+  });
 
-  it('should create an index without parameters', () => {
+  it("should create an index without parameters", () => {
     expect(() => {
-      waterfall.createIndex()
-    }).toThrow()
-  })
+      waterfall.createIndex();
+    }).toThrow();
+  });
 
-  it('should not create an index with the same key', () => {
+  it("should not create an index with the same key", () => {
     expect(() => {
-      waterfall.createIndex('test')
-    }).toThrow()
-  })
+      waterfall.createIndex("test");
+    }).toThrow();
+  });
 
   it('should not start the waterfall if we call "next" before "start"', () => {
-    waterfall.next()
+    waterfall.next();
 
-    expect(waterfall.index).toBeNull()
-  })
+    expect(waterfall.index).toBeNull();
+  });
 
-  it('should start the waterfall tips by selecting the first index', () => {
-    waterfall.start()
-
-    expect(waterfall.index).toEqual({
-      name: 'test',
-      position: 0
-    })
-  })
-
-  it('should go to the next waterfall tips', () => {
-    waterfall.next()
+  it("should start the waterfall tips by selecting the first index", () => {
+    waterfall.start();
 
     expect(waterfall.index).toEqual({
-      name: 'buttonSpecial',
-      position: 1
-    })
-  })
+      name: "test",
+      position: 0,
+    });
+  });
+
+  it("should go to the next waterfall tips", () => {
+    waterfall.next();
+
+    expect(waterfall.index).toEqual({
+      name: "buttonSpecial",
+      position: 1,
+    });
+  });
 
   it('should go to the next waterfall tips and trigger the event "onIndexChange"', () => {
     waterfall.options.onIndexChange = (index) => {
-      waterfall.options.onIndexChange = null
-      expect(index).toBe("ok")
-    }
+      waterfall.options.onIndexChange = null;
+      expect(index).toBe("ok");
+    };
 
-    waterfall.next()
-  })
+    waterfall.next();
+  });
 
   it('should trigger "onEnd" event at the end of waterfall', (done) => {
     waterfall.options.onEnd = () => {
-      waterfall.options.onEnd = null
-      done()
-    }
+      waterfall.options.onEnd = null;
+      done();
+    };
 
-    waterfall.next()
-  })
+    waterfall.next();
+  });
 
   it('should return null if we call "next" at the end of the waterfall', () => {
-    waterfall.next()
+    waterfall.next();
 
-    expect(waterfall.index).toBeNull()
-  })
+    expect(waterfall.index).toBeNull();
+  });
 
   it('should do nothing if we call "previous" at the beginning of the waterfall', () => {
-    waterfall.start()
-    waterfall.previous()
+    waterfall.start();
+    waterfall.previous();
 
     expect(waterfall.index).toEqual({
-      name: 'test',
-      position: 0
-    })
-  })
+      name: "test",
+      position: 0,
+    });
+  });
 
-  it('should go the previous waterfall tips', () => {
-    waterfall.next()
-    waterfall.next()
-    expect(waterfall.index.position).toBe(2)
+  it("should go the previous waterfall tips", () => {
+    waterfall.next();
+    waterfall.next();
+    expect(waterfall.index.position).toBe(2);
 
-    waterfall.previous()
+    waterfall.previous();
     expect(waterfall.index).toEqual({
-      name: 'buttonSpecial',
-      position: 1
-    })
-  })
+      name: "buttonSpecial",
+      position: 1,
+    });
+  });
 
-  it('should return false if the index is null', () => {
-    expect(waterfall.isVisible()).toBeFalsy()
-  })
+  it("should return false if the index is null", () => {
+    expect(waterfall.isVisible()).toBeFalsy();
+  });
 
-  it('should return true if the index correspond to the index passed to parameter', () => {
-    expect(waterfall.isVisible('buttonSpecial')).toBeTruthy()
-  })
+  it("should return true if the index correspond to the index passed to parameter", () => {
+    expect(waterfall.isVisible("buttonSpecial")).toBeTruthy();
+  });
 
-  it('should return false if the index not corresponding to the index passed to parameter', () => {
-    expect(waterfall.isVisible('ok')).toBeFalsy()
-  })
+  it("should return false if the index not corresponding to the index passed to parameter", () => {
+    expect(waterfall.isVisible("ok")).toBeFalsy();
+  });
 
   it('should set index to "null" if options.disabled is set to true', () => {
-    waterfall.options.disabled = true
+    waterfall.options.disabled = true;
 
-    const index = waterfall.start()
-    expect(index).toBeNull()
-    expect(waterfall.isVisible('test')).toBeFalsy()
-  })
-})
+    const index = waterfall.start();
+    expect(index).toBeNull();
+    expect(waterfall.isVisible("test")).toBeFalsy();
+  });
+});

@@ -1,72 +1,79 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import ReactMixin from 'react-mixin'
-import TimerMixin from 'react-timer-mixin'
-import styled from 'styled-components/native'
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import ReactMixin from "react-mixin";
+import TimerMixin from "react-timer-mixin";
+import styled from "styled-components/native";
 import {
-  Text, View, Modal, StyleSheet,
-  TouchableOpacity, ViewPropTypes
-} from 'react-native'
+  Text,
+  View,
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  ViewPropTypes,
+} from "react-native";
 
-
-const getArrowStyleByPosition = (position = 'top') => {
+const getArrowStyleByPosition = (position = "top") => {
   switch (position) {
-    case 'right': return {
-      left: -5,
-      top: '50%',
-      marginTop: 5,
-      borderTopWidth: 5,
-      borderRightWidth: 5,
-      borderBottomWidth: 5,
-      borderTopColor: 'transparent',
-      borderBottomColor: 'transparent',
-      borderRightColor: 'rgba(0, 0, 0, 0.5)'
-    }
+    case "right":
+      return {
+        left: -5,
+        top: "50%",
+        marginTop: 5,
+        borderTopWidth: 5,
+        borderRightWidth: 5,
+        borderBottomWidth: 5,
+        borderTopColor: "transparent",
+        borderBottomColor: "transparent",
+        borderRightColor: "rgba(0, 0, 0, 0.5)",
+      };
 
-    case 'left': return {
-      right: -5,
-      top: '50%',
-      marginTop: 5,
-      borderTopWidth: 5,
-      borderLeftWidth: 5,
-      borderBottomWidth: 5,
-      borderTopColor: 'transparent',
-      borderBottomColor: 'transparent',
-      borderLeftColor: 'rgba(0, 0, 0, 0.5)'
-    }
+    case "left":
+      return {
+        right: -5,
+        top: "50%",
+        marginTop: 5,
+        borderTopWidth: 5,
+        borderLeftWidth: 5,
+        borderBottomWidth: 5,
+        borderTopColor: "transparent",
+        borderBottomColor: "transparent",
+        borderLeftColor: "rgba(0, 0, 0, 0.5)",
+      };
 
-    case 'bottom': return {
-      top: -5,
-      left: '50%',
-      marginLeft: 2.5,
-      borderLeftWidth: 5,
-      borderRightWidth: 5,
-      borderBottomWidth: 5,
-      borderLeftColor: 'transparent',
-      borderRightColor: 'transparent',
-      borderBottomColor: 'rgba(0, 0, 0, 0.5)'
-    }
+    case "bottom":
+      return {
+        top: -5,
+        left: "50%",
+        marginLeft: 2.5,
+        borderLeftWidth: 5,
+        borderRightWidth: 5,
+        borderBottomWidth: 5,
+        borderLeftColor: "transparent",
+        borderRightColor: "transparent",
+        borderBottomColor: "rgba(0, 0, 0, 0.5)",
+      };
 
-    default: return {
-      bottom: -5,
-      left: '50%',
-      marginLeft: 2.5,
-      borderTopWidth: 5,
-      borderLeftWidth: 5,
-      borderRightWidth: 5,
-      borderLeftColor: 'transparent',
-      borderRightColor: 'transparent',
-      borderTopColor: 'rgba(0, 0, 0, 0.5)'
-    }
+    default:
+      return {
+        bottom: -5,
+        left: "50%",
+        marginLeft: 2.5,
+        borderTopWidth: 5,
+        borderLeftWidth: 5,
+        borderRightWidth: 5,
+        borderLeftColor: "transparent",
+        borderRightColor: "transparent",
+        borderTopColor: "rgba(0, 0, 0, 0.5)",
+      };
   }
-}
+};
 
 const TooltipArrow = styled.View`
   position: absolute;
   shadow-radius: 1px;
   shadow-color: black;
   shadow-opacity: 0.5;
-`
+`;
 
 const Tooltip = styled.View`
   background: rgba(0, 0, 0, 0.5);
@@ -76,7 +83,7 @@ const Tooltip = styled.View`
   shadow-radius: 1px;
   shadow-color: black;
   shadow-opacity: 0.5;
-`
+`;
 
 const ModalContent = styled.View`
   width: 80%;
@@ -84,7 +91,7 @@ const ModalContent = styled.View`
   align-self: center;
   position: absolute;
   flex-wrap: nowrap;
-`
+`;
 
 const ChildrenOverlay = styled.TouchableOpacity`
   position: absolute;
@@ -93,32 +100,30 @@ const ChildrenOverlay = styled.TouchableOpacity`
   left: 0;
   right: 0;
   bottom: 0;
-`
+`;
 
 const HighlightView = styled.View`
   position: relative;
   z-index: 0;
-`
-
+`;
 
 const styles = StyleSheet.create({
   tooltipContainer: {
-    position: 'relative',
-    flex: 1
+    position: "relative",
+    flex: 1,
   },
 
   modal: {
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    position: 'relative',
-    flex: 1
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    position: "relative",
+    flex: 1,
   },
 
   text: {
-    color: 'white',
-    textAlign: 'center'
-  }
-})
-
+    color: "white",
+    textAlign: "center",
+  },
+});
 
 export default class Tips extends PureComponent {
   /* LIFECYCLE */
@@ -128,10 +133,9 @@ export default class Tips extends PureComponent {
    * @param {*} props - Properties of the PureComponent
    */
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-
       /**
        * The position of the children in x axis
        * @type {Number}
@@ -172,15 +176,15 @@ export default class Tips extends PureComponent {
        * Check if the component is ready
        * @type {Boolean}
        */
-      ready: false
-    }
+      ready: false,
+    };
 
-    this.view = null
-    this.timeoutDelay = null
+    this.view = null;
+    this.timeoutDelay = null;
 
-    this.handleLayout = this.handleLayout.bind(this)
-    this.handleTooltipLayout = this.handleTooltipLayout.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
+    this.handleLayout = this.handleLayout.bind(this);
+    this.handleTooltipLayout = this.handleTooltipLayout.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   /**
@@ -188,7 +192,7 @@ export default class Tips extends PureComponent {
    */
   componentDidMount() {
     if (this.props.visible) {
-      this.updateComponentPosition(true)
+      this.updateComponentPosition(true);
     }
   }
 
@@ -198,14 +202,13 @@ export default class Tips extends PureComponent {
    */
   componentWillReceiveProps(nextProps, nextState) {
     if (nextProps.visible && !this.props.visible && !nextState.ready) {
-      this.updateComponentPosition(true)
+      this.updateComponentPosition(true);
     } else if (!nextProps.visible && this.props.visible && nextState.ready) {
       this.setState({
-        ready: false
-      })
+        ready: false,
+      });
     }
   }
-
 
   /* METHODS */
 
@@ -217,17 +220,20 @@ export default class Tips extends PureComponent {
    */
   getModalContentStyleByPosition(position) {
     switch (position) {
-      case 'right':
-      case 'left': return {
-        flexDirection: 'row'
-      }
+      case "right":
+      case "left":
+        return {
+          flexDirection: "row",
+        };
 
-      case 'top':
-      case 'bottom': return {
-        flexDirection: 'column'
-      }
+      case "top":
+      case "bottom":
+        return {
+          flexDirection: "column",
+        };
 
-      default: return {}
+      default:
+        return {};
     }
   }
 
@@ -236,23 +242,29 @@ export default class Tips extends PureComponent {
    * @param {Boolean=} willBeReady - If true, the component state will be ready to be visible
    */
   updateComponentPosition(willBeReady = false) {
-    const { delay } = this.props
+    const { delay } = this.props;
 
     this.requestAnimationFrame(() => {
       this.view.measure((x, y, width, height, pageX, pageY) => {
-        this.setState(state => ({
-          componentLeft: pageX,
-          componentTop: pageY,
-          componentWidth: state.componentWidth || width,
-          componentHeight: state.componentHeight || height
-        }), () => {
-          if (willBeReady) {
-            clearTimeout(this.timeoutDelay)
-            this.timeoutDelay = this.setTimeout(() => this.setState({ ready: true }), delay)
+        this.setState(
+          (state) => ({
+            componentLeft: pageX,
+            componentTop: pageY,
+            componentWidth: state.componentWidth || width,
+            componentHeight: state.componentHeight || height,
+          }),
+          () => {
+            if (willBeReady) {
+              clearTimeout(this.timeoutDelay);
+              this.timeoutDelay = this.setTimeout(
+                () => this.setState({ ready: true }),
+                delay
+              );
+            }
           }
-        })
-      })
-    })
+        );
+      });
+    });
   }
 
   /**
@@ -260,14 +272,14 @@ export default class Tips extends PureComponent {
    * @param {*} event - The event object
    */
   handleLayout(event) {
-    const { width, height } = event.nativeEvent.layout
+    const { width, height } = event.nativeEvent.layout;
 
     this.setState({
       componentWidth: width,
-      componentHeight: height
-    })
+      componentHeight: height,
+    });
 
-    this.updateComponentPosition()
+    this.updateComponentPosition();
   }
 
   /**
@@ -275,59 +287,76 @@ export default class Tips extends PureComponent {
    * @param {*} event - The event object
    */
   handleTooltipLayout(event) {
-    const { position } = this.props
-    const { width, height } = event.nativeEvent.layout
+    const { position } = this.props;
+    const { width, height } = event.nativeEvent.layout;
 
     this.setState((state) => {
       const {
-        componentLeft, componentTop, componentWidth, componentHeight
-      } = state
-      const nextState = {}
+        componentLeft,
+        componentTop,
+        componentWidth,
+        componentHeight,
+      } = state;
+      const nextState = {};
 
       switch (position) {
-        case 'right':
-          nextState.tooltipTop = Math.max(-componentTop, (componentHeight / 2) - (height / 2))
-          nextState.tooltipLeft = 10
-          break
+        case "right":
+          nextState.tooltipTop = Math.max(
+            -componentTop,
+            componentHeight / 2 - height / 2
+          );
+          nextState.tooltipLeft = 10;
+          break;
 
-        case 'left':
-          nextState.tooltipTop = Math.max(-componentTop, (componentHeight / 2) - (height / 2))
-          nextState.tooltipLeft = -componentLeft - width - 10
-          break
+        case "left":
+          nextState.tooltipTop = Math.max(
+            -componentTop,
+            componentHeight / 2 - height / 2
+          );
+          nextState.tooltipLeft = -componentLeft - width - 10;
+          break;
 
-        case 'bottom':
-          nextState.tooltipLeft = Math.max(-componentLeft, (componentWidth / 2) - (width / 2))
-          nextState.tooltipTop = 10
-          break
+        case "bottom":
+          nextState.tooltipLeft = Math.max(
+            -componentLeft,
+            componentWidth / 2 - width / 2
+          );
+          nextState.tooltipTop = 10;
+          break;
 
-        case 'top':
-          nextState.tooltipTop = Math.max(-componentTop, -componentHeight - height - 10)
-          nextState.tooltipLeft = Math.max(-componentLeft, (componentWidth / 2) - (width / 2))
-          break
+        case "top":
+          nextState.tooltipTop = Math.max(
+            -componentTop,
+            -componentHeight - height - 10
+          );
+          nextState.tooltipLeft = Math.max(
+            -componentLeft,
+            componentWidth / 2 - width / 2
+          );
+          break;
 
         default:
-          nextState.tooltipTop = 0
-          nextState.tooltipLeft = 0
-          break
+          nextState.tooltipTop = 0;
+          nextState.tooltipLeft = 0;
+          break;
       }
 
-      return nextState
-    })
+      return nextState;
+    });
   }
 
   /**
    * Handle event to switch between 'onRequestNext' and 'onRequestClose'
    */
   handleRequestClose() {
-    const { onRequestNext, onRequestClose } = this.props
+    const { onRequestNext, onRequestClose } = this.props;
 
     if (onRequestNext) {
-      return onRequestNext()
+      return onRequestNext();
     }
 
-    return !!onRequestClose && onRequestClose()
+    return !!onRequestClose && onRequestClose();
   }
-
 
   /* RENDER */
 
@@ -337,26 +366,43 @@ export default class Tips extends PureComponent {
    */
   render() {
     const {
-      children, position, text, childrenStyle, tooltipArrowStyle,
-      modalStyle, textStyle, style, contentStyle, enableChildrenInteraction,
-      tooltipContainerStyle, content, offsetLeft, offsetTop
-    } = this.props
+      children,
+      position,
+      text,
+      childrenStyle,
+      tooltipArrowStyle,
+      modalStyle,
+      textStyle,
+      style,
+      contentStyle,
+      enableChildrenInteraction,
+      tooltipContainerStyle,
+      content,
+      offsetLeft,
+      offsetTop,
+    } = this.props;
 
     const {
-      componentLeft, componentTop,
-      componentWidth: width, componentHeight: height,
-      tooltipLeft, tooltipTop, ready
-    } = this.state
+      componentLeft,
+      componentTop,
+      componentWidth: width,
+      componentHeight: height,
+      tooltipLeft,
+      tooltipTop,
+      ready,
+    } = this.state;
 
-    const left = componentLeft + offsetLeft
-    const top = componentTop + offsetTop
-    const visible = this.props.visible && ready
+    const left = componentLeft + offsetLeft;
+    const top = componentTop + offsetTop;
+    const visible = this.props.visible && ready;
 
     return (
       <View
         collapsable={false}
         renderToHardwareTextureAndroid
-        ref={(view) => { this.view = view }}
+        ref={(view) => {
+          this.view = view;
+        }}
       >
         <View onLayout={this.handleLayout}>{children}</View>
 
@@ -377,7 +423,7 @@ export default class Tips extends PureComponent {
                 style={[
                   this.getModalContentStyleByPosition(position),
                   { left, top },
-                  contentStyle
+                  contentStyle,
                 ]}
               >
                 <ChildrenOverlay
@@ -386,11 +432,13 @@ export default class Tips extends PureComponent {
                 />
 
                 <HighlightView
-                  style={[{
-                    width,
-                    height,
-                    zIndex: enableChildrenInteraction ? 2 : 0
-                    }, childrenStyle
+                  style={[
+                    {
+                      width,
+                      height,
+                      zIndex: enableChildrenInteraction ? 2 : 0,
+                    },
+                    childrenStyle,
                   ]}
                 >
                   {children}
@@ -398,33 +446,38 @@ export default class Tips extends PureComponent {
 
                 <View
                   onLayout={this.handleTooltipLayout}
-                  style={[styles.tooltipContainer, {
-                    top: tooltipTop,
-                    left: tooltipLeft
-                  }, tooltipContainerStyle]}
+                  style={[
+                    styles.tooltipContainer,
+                    {
+                      top: tooltipTop,
+                      left: tooltipLeft,
+                    },
+                    tooltipContainerStyle,
+                  ]}
                 >
-                  <Tooltip
-                    style={style}
-                  >
+                  <Tooltip style={style}>
                     {content}
-                    {!!text && <Text style={[styles.text, textStyle]}>{text}</Text>}
-                    {position !== 'none' && (
+                    {!!text && (
+                      <Text style={[styles.text, textStyle]}>{text}</Text>
+                    )}
+                    {position !== "none" && (
                       <TooltipArrow
-                        style={[getArrowStyleByPosition(position), tooltipArrowStyle]}
+                        style={[
+                          getArrowStyleByPosition(position),
+                          tooltipArrowStyle,
+                        ]}
                       />
                     )}
                   </Tooltip>
                 </View>
               </ModalContent>
-
             </View>
           </TouchableOpacity>
         </Modal>
       </View>
-    )
+    );
   }
 }
-
 
 Tips.defaultProps = {
   visible: false,
@@ -440,21 +493,19 @@ Tips.defaultProps = {
   offsetLeft: 0,
   offsetTop: 0,
   delay: 250,
-  text: '',
-  position: 'top',
+  text: "",
+  position: "top",
   onRequestClose: () => {},
   onRequestNext: null,
-  enableChildrenInteraction: false
-}
-
+  enableChildrenInteraction: false,
+};
 
 Tips.propTypes = {
-
   /**
    * Define the position of your tips related to the children
    * @type {String}
    */
-  position: PropTypes.oneOf(['left', 'top', 'bottom', 'right', 'none']),
+  position: PropTypes.oneOf(["left", "top", "bottom", "right", "none"]),
 
   /**
    * Override the style of your tips
@@ -561,8 +612,7 @@ Tips.propTypes = {
    * @default false
    * @type {Boolean}
    */
-  enableChildrenInteraction: PropTypes.bool
-}
+  enableChildrenInteraction: PropTypes.bool,
+};
 
-
-ReactMixin(Tips.prototype, TimerMixin)
+ReactMixin(Tips.prototype, TimerMixin);

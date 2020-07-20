@@ -4,20 +4,20 @@ export default class WaterfallTips {
    * @param {*} indexes - Indexes to create
    */
   constructor(indexes = [], options = {}) {
-    this._index = null
-    this.indexes = {}
-    this.options = options
+    this._index = null;
+    this.indexes = {};
+    this.options = options;
 
-    indexes.forEach(index => this.createIndex(index))
+    indexes.forEach((index) => this.createIndex(index));
   }
 
   /**
    * Start the waterfall tips by the first position
    */
   start() {
-    this.index = this.getIndexByPosition(0)
+    this.index = this.getIndexByPosition(0);
 
-    return this.index && this.index.name
+    return this.index && this.index.name;
   }
 
   /**
@@ -25,8 +25,8 @@ export default class WaterfallTips {
    * @param {String|Object} index - The index
    * @returns {Boolean} Is visible or not
    */
-  isVisible(index = '') {
-    return this.index ? index === this.index.name : false
+  isVisible(index = "") {
+    return this.index ? index === this.index.name : false;
   }
 
   /**
@@ -36,22 +36,26 @@ export default class WaterfallTips {
    */
   createIndex(name) {
     if (!name) {
-      throw new Error(`WaterfallTips.createIndex must have a name parameter. Found: "${name}"`)
+      throw new Error(
+        `WaterfallTips.createIndex must have a name parameter. Found: "${name}"`
+      );
     }
 
-    const key = name.replace(/[^a-zA-Z]/g, '')
+    const key = name.replace(/[^a-zA-Z]/g, "");
 
     if (this.indexes[key]) {
-      throw new Error(`WaterfallTips index must be unique. Found duplicate key: "${key} (${name})"`)
+      throw new Error(
+        `WaterfallTips index must be unique. Found duplicate key: "${key} (${name})"`
+      );
     }
 
     const index = {
       name: key,
-      position: Object.keys(this.indexes).length
-    }
+      position: Object.keys(this.indexes).length,
+    };
 
-    this.indexes[key] = index
-    return key
+    this.indexes[key] = index;
+    return key;
   }
 
   /**
@@ -60,12 +64,12 @@ export default class WaterfallTips {
    * @returns {*} The index object
    */
   getIndexByPosition(position) {
-    const key = Object.keys(this.indexes)
-      .find(k => this.indexes[k].position === position)
+    const key = Object.keys(this.indexes).find(
+      (k) => this.indexes[k].position === position
+    );
 
-    return this.indexes[key]
+    return this.indexes[key];
   }
-
 
   /* METHODS */
 
@@ -73,19 +77,20 @@ export default class WaterfallTips {
    * Trigger the next tips
    */
   next() {
-    const isFinished = this.index && this.index.position + 1 >= Object.keys(this.indexes).length
+    const isFinished =
+      this.index && this.index.position + 1 >= Object.keys(this.indexes).length;
 
     if (!this.index || isFinished) {
-      this.index = null
+      this.index = null;
 
       if (this.options.onEnd) {
-        this.options.onEnd()
+        this.options.onEnd();
       }
     } else {
-      this.index = this.getIndexByPosition(this.index.position + 1)
+      this.index = this.getIndexByPosition(this.index.position + 1);
     }
 
-    return this.index && this.index.name
+    return this.index && this.index.name;
   }
 
   /**
@@ -93,12 +98,11 @@ export default class WaterfallTips {
    */
   previous() {
     if (this.index && this.index.position > 0) {
-      this.index = this.getIndexByPosition(this.index.position - 1)
+      this.index = this.getIndexByPosition(this.index.position - 1);
     }
 
-    return this.index && this.index.name
+    return this.index && this.index.name;
   }
-
 
   /* ACCESSORS */
 
@@ -107,7 +111,7 @@ export default class WaterfallTips {
    * @returns {Object}
    */
   get index() {
-    return this.options.disabled ? null : this._index
+    return this.options.disabled ? null : this._index;
   }
 
   /**
@@ -116,10 +120,10 @@ export default class WaterfallTips {
    */
   set index(index) {
     if (index !== this._index) {
-      this._index = index
+      this._index = index;
 
       if (this.options.onIndexChange) {
-        this.options.onIndexChange(index && index.name)
+        this.options.onIndexChange(index && index.name);
       }
     }
   }
