@@ -3,12 +3,7 @@ This project is no more used by our products and, consequently, is not maintain 
 # rn-tips
 This module is used to guide your new comers throughout your app. Easily and Effectively.
 
-
-# Update to v0.0.8 - Deprecation warning
-- `onRequestNext` is deprecated. It will be removed in the next update. Be sure to replace it
-by `onRequestClose` which does the same thing.
-
-# How to install
+## How to install
 
 ```bash
 # Install via npm
@@ -18,7 +13,7 @@ npm install rn-tips --save
 yarn add rn-tips
 ```
 
-# How to use it
+## How to use it
 
 To use it, just import it directly into your components
 
@@ -26,7 +21,7 @@ To use it, just import it directly into your components
 import Tips from 'rn-tips'
 ```
 
-# Example
+## Example
 
 The most basic example of this module is to use it like this : 
 
@@ -51,9 +46,9 @@ export default MyButton
 ```
 
 
-# Configuration
+## Configuration
 
-## Properties of Tips:
+### Properties of Tips:
 
 | Property | Type | Requirement | Description |
 |----------------|---------------|-----------|--------------------------------------|
@@ -77,7 +72,7 @@ export default MyButton
 | enableChildrenInteraction | Boolean | Default: `false` | If set to true, interation with children won't close the Tips |
 
 
-# Waterfall Tips
+## Waterfall Tips
 
 You sometimes need to show tips one after another. This module has a helper to execute this scheme. You can use
 `new Tips.Waterfall()` to create a new helper that helps you to show/hide tips in a waterfall manner.
@@ -143,7 +138,7 @@ export default class MyButton extends PureComponent {
 }
 ```
 
-## Use Tips only one time
+### Use Tips only one time
 
 In most of the cases, you only want these tips when the user arrives for the first time on your app or when your app has been updated.
 It is possible to do this with the Waterfall Tips helper :
@@ -168,7 +163,7 @@ It is possible to do this with the Waterfall Tips helper :
 Options can be instanciated at the constructor or wherever you want.
 
 
-## methods of Tips.Waterfall:
+### methods of Tips.Waterfall:
 
 | Method | Description |
 |----------------|--------------------------------------|
